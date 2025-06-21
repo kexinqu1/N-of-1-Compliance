@@ -1,0 +1,56 @@
+model {
+  
+  #N = 1 for 1-patient model
+  for(i in 1:N){
+    prec_eta[i] <- 1/(1-rho[i])
+    prec_e[i] <- prec_u[i]/(1-rho_u[i]^2)
+    
+    #j=1
+    u[i,1] ~ dnorm(0, prec_u[i])
+    for(j in 2:J){
+      u[i,j] <- rho_u[i]*u[i,j-1] + e[i,j]
+      e[i,j] ~ dnorm(0,prec_e[i])
+    }
+    
+    #j = 1
+    Xs[i,1] ~ dnorm(mu_x[i,1],prec_eta[I]) #latent Xs
+    X[i,1] ~ dinterval(Xs[i,1],0)  #observed X
+    mu_x[i,1] <- alpha0[i] + alpha1[i]*R[i,1] + u[i,1]
+    
+    mu_y[i,1] <- beta0[i] + beta1[i]*X[i,1]+ u[i,1]
+    Ys[i,1] ~ dnorm(mu_y[i,j],prec_eta[I])  #latent Ys
+    Y[i,1]  ~  dinterval(Ys[i,1],0)  #observed Y
+    
+    for(j in 2:J){
+      Xs[i,j] ~ dnorm(mu_x[i,j],prec_eta[i])
+      X[i,j] ~ dinterval(Xs[i,j],0)
+      mu_x[i,j] <- alpha0[i] + alpha1[i]*R[i,j] + u[i,j]
+      
+      mu_y[i,j] <- beta0[i] + beta1[i]*X[i,j]+ beta2[i]*X[i,j-1]+ u[i,j]
+      Ys[i,j] ~ dnorm(mu_y[i,j],prec_eta[i])
+      Y[i,j]  ~  dinterval(Ys[i,j],0)
+    }
+    mu_y1[i] <- beta0[i] + beta1[i]
+    mu_y0[i] <- beta0[i]
+    p_y0[i] <- pnorm(mu_y0[i], 0, 1)
+    p_y1[i] <-pnorm(mu_y1[i], 0, 1)
+    log_CRR[i] <- log(p_y1[i])- log(p_y0[i])
+    log_COR[i] <- log(p_y1[i]) +log(1-p_y0[i])-log(p_y0[i])- log(1-p_y1[i])
+  }
+  
+  ########
+  #priors#
+  ########
+  for(i in 1:N){
+    alpha0[i] ~ dnorm(alpha0_mean_prior,1)T(-trunc.var,trunc.var)
+    alpha1[i] ~ dnorm(alpha1_mean_prior,1)T(-trunc.var,trunc.var)
+    beta0[i] ~ dnorm(beta0_mean_prior,1)T(-trunc.var,trunc.var)
+    beta1[i] ~ dnorm(0,1/coef.var)T(-trunc.var,trunc.var)
+    beta2[i] ~ dnorm(0,1/coef.var)T(-trunc.var,trunc.var)
+    sigma_e[i] <- sqrt(1/prec_e[i])
+    sqrt_rho[i] ~  dunif(-0.999, 0.999)
+    rho[i]  <- (sqrt_rho[i])^2
+    rho_u[i] ~  dunif(-0.99,0.99)
+    prec_u[i] <- 1/(rho[i] + 0.001) #avoid boundary issues
+  }
+}
