@@ -24,8 +24,13 @@ install.packages(c("rjags", "coda", "ggplot2", "dplyr"))
 # Load utility functions
 source("utility_functions.R")
 
-# Run the main model
+# load the wrapper function
 source("run_rjags_nof1_iv.R")
+
+#load the input data (e.g., a simulation dataset available in the Data folder
+load('Data/sim_data_l10nb10rho0.7_carryover.RData')
+input=sim.data[[1]]
+run_jags_nof1_iv(input)
 
 # Outputs (posterior samples and summary stats) are saved in Output folder by default
 ```
