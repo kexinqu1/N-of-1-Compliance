@@ -43,3 +43,5 @@ run_jags_nof1_iv(input)
   - `R` represents the treatment assignment (drinking period randomization).
 
  ### The model file `nof1_carryover_model.txt` must be located in the same folder as the main script `run_rjags_nof1_iv.R` for the model to be correctly loaded.
+
+ ### Parameters 'log_COR' and 'log_CRR' in the outputs are the estimations for the causal estimands on daily drinking and the usual drinking habit. 
