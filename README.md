@@ -26,12 +26,13 @@ source("utility_functions.R")
 
 # Run the main model
 source("run_rjags_nof1_iv.R")
-
+```
 
 ## Notes
-  The input data for one N-of-1 trial should be structured as a matrix or data frame with dimensions TJ × 3, where the three columns include
+
+### The input data for one N-of-1 trial should be structured as a matrix or data frame with dimensions TJ × 3, where the three columns include
   - `Y` represents the outcome (e.g., AF occurrence),
   - `X` represents the treatment selection (e.g., actual drinking) ,
   - `R` represents the treatment assignment (drinking period randomization).
 
-  The model file `nof1_carryover_model.txt` must be located in the same folder** as the main script `run_rjags_nof1_iv.R` for the model to be correctly loaded.
+ ### The model file `nof1_carryover_model.txt` must be located in the same folder** as the main script `run_rjags_nof1_iv.R` for the model to be correctly loaded.
