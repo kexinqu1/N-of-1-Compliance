@@ -26,6 +26,8 @@ source("utility_functions.R")
 
 # Run the main model
 source("run_rjags_nof1_iv.R")
+
+# Outputs (posterior samples and summary stats) are saved in Output folder by default
 ```
 
 ## Notes
