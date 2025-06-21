@@ -15,12 +15,12 @@ Contact: [kexin_qu@alumni.brown.edu]
 
 ## How to Use
 
-### 1. Install Required R Packages
-
 ```r
+# 1. Install Required R Packages
+
 install.packages(c("rjags", "coda", "ggplot2", "dplyr"))
 
-### 2. Run scripts
+#  2. Run scripts
 # Load utility functions
 source("utility_functions.R")
 
