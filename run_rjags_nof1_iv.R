@@ -1,3 +1,4 @@
+source("utility_functions.R")
 run_jags_nof1_iv <- function(model.file = 'nof1_carryover_model.txt',
                              input, # input data dimension: TJ x 3 : Y (outcome), X (treatment selection), R (treatment assignment)
                              model.inits = list(beta0 = c(-2,0,2),
@@ -6,8 +7,12 @@ run_jags_nof1_iv <- function(model.file = 'nof1_carryover_model.txt',
                                                  alpha0 = c(-2,0,2),
                                                  alpha1 = c(-2,0,2),
                                                  alpha2 = c(-2,0,2)),
+                             # MCMC set up
                              nruns = 5000,
                              n.chains= 3,
+                             conv.limit = 1.01,
+                             niters = 500000,
+                             setsize = 1000,
                              # check specified parameters for convergence
                              conv.pars = c('beta0', 'beta1','beta2',
                                             'alpha0','alpha1','sigma_e','rho_w','rhoxy',
@@ -24,6 +29,7 @@ run_jags_nof1_iv <- function(model.file = 'nof1_carryover_model.txt',
                              beta0_mean =NA,
                              coef.var = 1,
                              trunc.var = 100  #truncate extreme values to optimize computation,
+                             
 ){
   if( is.na(alpha0_mean)) alpha0_mean = qnorm(mean(input$X[input$R==0]))
   if(is.na(alpha1_mean)) alpha1_mean = qnorm(mean(input$X[input$R==1]))-qnorm(mean(input$X[input$R==0]))
