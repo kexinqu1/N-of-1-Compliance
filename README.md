@@ -5,7 +5,7 @@ Author: Kexin Qu
 Contact: [kexin_qu@alumni.brown.edu]
 
 
-## 📁 Repository Contents
+## Repository Contents
 
 - `run_rjags_nof1_iv.R`: Main R script that runs the Bayesian IV model.
 - `utility_functions.R`: Helper functions for preprocessing and modeling.
