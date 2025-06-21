@@ -32,7 +32,7 @@ source("run_rjags_nof1_iv.R")
 
 ## Notes
 
-### The input data for one N-of-1 trial should be structured as a matrix or data frame with dimensions TJ × 3, where the three columns include
+### The input data for one N-of-1 trial should be structured as a matrix or data frame with dimensions TJ × p, where T is the number of the randomized period, J is the duration of each period, and p has to be at least 3. The columns must include the three specified below and the optional measured confounders. 
   - `Y` represents the outcome (e.g., AF occurrence),
   - `X` represents the treatment selection (e.g., actual drinking) ,
   - `R` represents the treatment assignment (drinking period randomization).
