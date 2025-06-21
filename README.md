@@ -37,4 +37,4 @@ source("run_rjags_nof1_iv.R")
   - `X` represents the treatment selection (e.g., actual drinking) ,
   - `R` represents the treatment assignment (drinking period randomization).
 
- ### The model file `nof1_carryover_model.txt` must be located in the same folder** as the main script `run_rjags_nof1_iv.R` for the model to be correctly loaded.
+ ### The model file `nof1_carryover_model.txt` must be located in the same folder as the main script `run_rjags_nof1_iv.R` for the model to be correctly loaded.
